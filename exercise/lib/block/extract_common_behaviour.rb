@@ -5,17 +5,22 @@ class Client
     @ip, @port = ip, port
   end
 
-  def send_message(msg)
+  def connect(&block)
     socket = TCPSocket.new(@ip,@port)
-    socket.puts(msg)
+    yield socket
   ensure
     socket.close
   end
 
+  def send_message(msg)
+    connect do |socket|
+      socket.puts(msg)
+    end
+  end
+
   def receive_message
-    socket = TCPSocket.new(@ip,@port)
-    response = socket.gets
-  ensure
-    socket.close
+    connect do |socket|
+      socket.gets
+    end
   end
 end

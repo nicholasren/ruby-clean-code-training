@@ -1,4 +1,10 @@
 class Server
+  def self.generate(&block)
+    server = Server.new
+    server.instance_eval(&block)
+    server
+  end
+
   def initialize()
     @handlers = {}
   end

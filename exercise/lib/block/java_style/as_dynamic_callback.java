@@ -1,3 +1,6 @@
+interface Callback {
+  public Object call();
+}
 class Server {
   private Map<Pattern, Callback>  handlers = new HashMap<Pattern, Callback>();
 
@@ -13,6 +16,7 @@ class Server {
       }
     }
     return null;
+
 }
 
 class Runner {

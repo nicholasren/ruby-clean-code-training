@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Server do
   let(:server) {
-    server = Server.new
-    server.handle(/hello/i) { "Hello from server" }
-    server
+    Server.generate do
+      handle(/hello/i) { "Hello from server" }
+      handle(/play/i) { "play from server" }
+    end
   }
 
   subject { server.recieve(request) }
