@@ -36,13 +36,22 @@ describe "collection operation" do
     end
 
     it "reducing summary" do
-      sum = array.reduce(&:+)
+      sum = array.reduce(0){|acc, x| acc + x}
       expect(sum).to eq(55)
     end
+
 
     it "doubling element" do
       new_array = array.map{ |x| x * 2 }
       expect(new_array).to eq([2,4,6,8,10,12,14,16,18,20])
     end
+  end
+
+  context "all?" do
+    all?([1,2,4]){ |x| x > 0 }.should eq(true)
+    all?([-1,2,4]){ |x| x > 0 }.should eq(false)
+  end
+
+  def all?(arr)
   end
 end
