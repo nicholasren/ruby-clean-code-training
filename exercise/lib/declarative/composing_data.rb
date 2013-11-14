@@ -12,6 +12,7 @@ class Student
 end
 
 class Assignment
+  attr_reader :grade, :course
   def initialize(course, grade)
     @course = course
     @grade = grade
@@ -19,18 +20,25 @@ class Assignment
 end
 
 class Course
-  attr_reader :grade
-  def initialize grade
-    @grade = grade
+  attr_reader :name
+  def initialize(name)
+    @name = name
   end
 end
 
 class Calculator
   def total_average(students)
-    0
+   students.map(&:assignments)
+   .flatten
+   .map(&:grade)
+   .reduce(&:+) / students.size
   end
 
   def course_average(students, course)
-    0
+   students.map(&:assignments)
+   .flatten
+   .select{|assignment| assignment.course.name.downcase == course }
+   .map(&:grade)
+   .reduce(&:+) / students.size
   end
 end
