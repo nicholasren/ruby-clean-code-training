@@ -47,11 +47,20 @@ describe "collection operation" do
     end
   end
 
-  context "all?" do
-    all?([1,2,4]){ |x| x > 0 }.should eq(true)
-    all?([-1,2,4]){ |x| x > 0 }.should eq(false)
+  class A
+    def self.all?(arr)
+      arr.reduce(true){|acc, x| acc && yield(x)}
+    end
   end
 
-  def all?(arr)
+
+  context "all?" do
+    A.all?([1,2,4]) do |x|
+      x > 0
+    end.should == true
+    A.all?([-1,2,4])do |x|
+      (x > 0)
+    end.should  == false
   end
+
 end
