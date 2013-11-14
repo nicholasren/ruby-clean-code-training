@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "collection operation" do
+describe Collection do
   let( :array ) { [1,2,3,4,5,6,7,8,9,10] }
 
   context 'imperative' do
@@ -47,18 +47,11 @@ describe "collection operation" do
     end
   end
 
-  class A
-    def self.all?(arr)
-      arr.reduce(true){|acc, x| acc && yield(x)}
-    end
-  end
-
-
   context "all?" do
-    A.all?([1,2,4]) do |x|
+    Collection.all?([1,2,4]) do |x|
       x > 0
     end.should == true
-    A.all?([-1,2,4])do |x|
+    Collection.all?([-1,2,4])do |x|
       (x > 0)
     end.should  == false
   end
