@@ -14,7 +14,7 @@ end
 
 class MyClass
     include MyModule
-    puts "what? an string inside a class"
+    puts "what? an string before a class definition"
 
     # def self.macro(*names)
     #     names.each do |name|
@@ -22,5 +22,11 @@ class MyClass
     #     end
     # end
 
-    macro :hello, :world
+    # macro :hello, :world
+    def method 
+        puts "in a method"
+    end
+
+    puts "what? an string after a class definition"
 end
+
