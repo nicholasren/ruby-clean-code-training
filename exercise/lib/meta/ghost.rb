@@ -18,7 +18,7 @@ class Magic
         eigenclass = class << self; self; end
         eigenclass.class_eval do
             define_method "#{name}" do |*args, &block|
-                block.call(args) if block_given?
+                block.call(self) if block_given?
             end
         end
         send(name, *args, &block)
@@ -26,15 +26,9 @@ class Magic
 end
 
 # 
-missing = Magic.new
-missing.person ["juntao", "nicolas"] do |p|
-    puts p
-end
-
-class Person
-    def name 
-        "person"
-    end
+magic = Magic.new
+magic.person do |p|
+    puts p.class
 end
 
 class Person
@@ -43,15 +37,41 @@ class Person
     end
 end
 
-Person.class
 person = Person.new
 person.name
 
-class Class
+# singlaton method
+def person.address
+    puts "Greenland"
+end
+
+person.address
+
+# open class Class, and add another method
+# class Class
+#     def loud_name
+#         puts "#{name.upcase}"
+#     end
+# end
+
+Class.class_eval do
     def loud_name
-        "#{name.upcase}"
+        puts "#{name.upcase}"
     end
 end
 
-p Person.loud_name
+Person.loud_name
 
+class Person
+    def name
+        puts "person.name is invoked"
+    end
+end
+
+PPerson = Class.new do
+    def name
+        puts "person.name is invoked"
+    end
+end
+
+PPerson.new.name
