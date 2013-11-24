@@ -43,7 +43,7 @@ describe Server do
     let(:method) { 'PUT' }
     let(:uri) { "/user/1" }
     it "be responded" do
-      subject.should eq("User 1 updated created")
+      subject.should eq("User 1 updated")
     end
   end
 
