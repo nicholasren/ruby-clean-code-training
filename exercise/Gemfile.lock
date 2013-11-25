@@ -1,6 +1,7 @@
 GEM
   remote: http://ruby.taobao.org/
   specs:
+    builder (3.1.4)
     diff-lcs (1.2.4)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -15,4 +16,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  builder
   rspec
