@@ -8,12 +8,12 @@ class Server
   end
 
   def initialize
-    @handlers = {}
+    @handlers = []
   end
 
   %w{ get post put }.each do |method|
     define_method(method) do |uri, &block|
-      handlers_for(method) << Handler.new(build_pattern(uri), block)
+      @handlers << Handler.new(method, build_pattern(uri), block)
     end
   end
 
@@ -22,18 +22,14 @@ class Server
   end
 
   def recieve(method, uri)
-    handlers_for(method).each do |handler|
-      response = handler.handle(uri)
+    @handlers.each do |handler|
+      response = handler.handle(method, uri)
       return response unless response.nil?
     end
     @not_found.call
   end
 
   private
-  def handlers_for(method)
-    @handlers[method.downcase] ||= []
-  end
-
   def build_pattern(uri)
     match_data = uri.match PARAM_PATTERN
     if match_data
@@ -47,17 +43,26 @@ class Server
   class Handler
     attr_reader :pattern, :block, :params
 
-    def initialize(pattern, block)
+    def initialize(method, pattern, block)
+      @method = method.downcase
       @pattern = pattern
       @block = block
     end
 
-    def handle uri
+    def handle(method, uri)
+      return nil unless method_matched?(method)
       match_data = @pattern.match uri
       if match_data
+        #extract params from uri and save them into this handler
         @params = extract_params(match_data)
+        #evaluating block on this handler
         self.instance_eval(&@block)
       end
+    end
+
+    private
+    def method_matched?(method)
+      method.downcase == @method
     end
 
     def extract_params(match_data)
