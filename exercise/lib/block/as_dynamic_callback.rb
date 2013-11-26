@@ -31,9 +31,8 @@ class Server
 
   private
   def build_pattern(uri)
-    match_data = uri.match PARAM_PATTERN
-    if match_data
-      param_name = match_data.to_a.last
+    if PARAM_PATTERN =~ uri
+      param_name = $~.to_a.last
       Regexp.new(uri.gsub(PARAM_PATTERN, "(?<#{param_name}>[^/]+)"))
     else
       Regexp.new(uri)
@@ -51,10 +50,10 @@ class Server
 
     def handle(method, uri)
       return nil unless method_matched?(method)
-      match_data = @pattern.match uri
-      if match_data
+      if @pattern =~ uri
         #extract params from uri and save them into this handler
-        @params = extract_params(match_data)
+        @params = extract_params($~)
+
         #evaluating block on this handler
         self.instance_eval(&@block)
       end
