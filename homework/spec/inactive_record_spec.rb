@@ -9,17 +9,20 @@ end
 
 describe "InactiveRecord" do
   context "save attribtues" do
-    subject do
+    subject {
       juntao = Person.new do |p|
         p.name = 'juntao'
         p.age = 28
         p.email = 'juntao.qiu@gmail.com'
       end
       juntao
-    end
+    }
 
-    its(:name).should == 'juntao'
-    its(:age).should == 18
+    it "should read saved attributes " do
+      subject.name.should == 'juntao'
+      subject.age.should == 28
+      subject.email.should == "juntao.qiu@gmail.com"
+    end
   end
 
   context "schema validation" do
