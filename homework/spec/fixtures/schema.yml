@@ -1,0 +1,5 @@
+---
+Person:
+  Name: String
+  Age: Integer
+  Email: String
