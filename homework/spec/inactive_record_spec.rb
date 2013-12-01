@@ -38,13 +38,13 @@ describe "InactiveRecord" do
     context "change a valid field" do
       it "should succeed" do
         subject.age = 29
-        subject.age.should = 29
+        subject.age.should == 29
       end
     end
 
     context "change a invalid field" do
       it "should raise error" do
-        expect { subject.weight= 60 }.to raise_error(MissingFieldError)
+        expect { subject.weight= 60 }.to raise_error(StandardError)
       end
     end
   end
