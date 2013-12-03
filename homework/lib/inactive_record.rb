@@ -6,12 +6,22 @@ module InactiveRecord
         yield(self) if block_given?
       end
 
-      def schema path=nil
+      def schemas path=nil
         if path
-          @schema = YAML.load_file(path)
+          @schemas = YAML.load_file(path)
         else
-          @schema
+          @schemas
         end
+      end
+
+      def inherited(base)
+        base.class_eval do
+          class << self
+            attr_accessor :schema
+          end
+        end
+
+        base.schema = @schemas[base.name]
       end
     end
 
@@ -38,11 +48,8 @@ module InactiveRecord
     end
 
     def attribute_names
-      current_schema.map{|name, type| name.downcase}
+      self.class.schema.map{|name, type| name.downcase}
     end
 
-    def current_schema
-      InactiveRecord::Base.schema[self.class.name]
-    end
   end
 end

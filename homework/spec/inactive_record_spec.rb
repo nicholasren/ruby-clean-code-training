@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 InactiveRecord::Base.config do |config|
-  config.schema "spec/fixtures/schema.yml"
+  config.schemas "spec/fixtures/schema.yml"
 end
 
 class Person < InactiveRecord::Base
