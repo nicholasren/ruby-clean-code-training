@@ -1,8 +1,15 @@
-class Dog
+class Mammal
+    def self.warm_blooded?
+        puts true
+    end
+end
+
+class Dog < Mammal
     def bark
         puts "bark bark"
     end
 end
+
 
 wang = Dog.new
 wo = Dog.new
@@ -28,7 +35,6 @@ class << Dog
 end
 
 Dog.closet_relative
-p Dog.class
 
 class Dog
     def eigenclass
@@ -44,17 +50,6 @@ tiger = Dog.new
 p tiger.eigenclass
 p tiger.eigenclass.superclass
 
-class Mammal
-    def self.warm_blooded?
-        puts true
-    end
-end
-
-class Dog < Mammal
-    def self.closet_relative
-        puts "wolf"
-    end
-end
 
 Dog.closet_relative
 Dog.warm_blooded?

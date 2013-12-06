@@ -1,4 +1,8 @@
 require 'spec_helper'
+###################################################
+# use block and instance_eval to create beautiful #
+# internal DSL                                    #
+###################################################
 
 describe HouseBuilder do
   subject {
