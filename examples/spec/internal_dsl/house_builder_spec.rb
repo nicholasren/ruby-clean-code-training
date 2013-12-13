@@ -20,9 +20,10 @@ describe HouseBuilder do
   }
 
   its(:name) { should eq(:home) }
+
   context "house builder" do
     it "should have 2 floors" do
-      subject.floors.size.should eq(2)
+      subject.floors.should have(2).items
     end
   end
 end
