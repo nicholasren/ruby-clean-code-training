@@ -52,7 +52,7 @@ describe LightWeb do
   end
 
   context "delete" do
-    let(:method) { 'PUT' }
+    let(:method) { 'DELETE' }
     let(:uri) { "/user/1" }
     it "be responded" do
       subject.should eq("User 1 deleted")
