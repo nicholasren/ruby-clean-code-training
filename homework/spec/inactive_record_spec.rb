@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'lib/inactive_record'
 
 InactiveRecord::Base.config do |config|
   config.schemas "spec/fixtures/schema.yml"
